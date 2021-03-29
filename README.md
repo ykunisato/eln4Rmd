@@ -17,11 +17,11 @@ remotes::install_github("ykunisato/eln4Rmd")
 
 ## 使用法
 
-new_elsjp()で日付のついた電子ラボノート用Rmdファイルが作成されます。
+new_elnjp()で日付のついた電子ラボノート用Rmdファイルが作成されます。
 
 ``` r
 library(eln4Rmd)
-new_elsjp()
+new_elnjp()
 ```
 
 ## 作成したMarkdownファイルを電子ラボノートとして機能させるには

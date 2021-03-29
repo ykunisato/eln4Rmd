@@ -5,7 +5,7 @@
 #' @param replace_day If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @export
-new_elsjp <- function(add_name = FALSE, replace_day = FALSE) {
+new_elnjp <- function(add_name = FALSE, replace_day = FALSE) {
   if(replace_day == FALSE){
     day_name <- Sys.Date()
   }else{
