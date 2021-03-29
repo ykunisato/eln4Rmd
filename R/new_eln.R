@@ -1,11 +1,11 @@
-#' @title make new e-labnotebook
+#' @title make new Japanese e-labnotebook
 #' @importFrom rmarkdown draft
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
 #' @param replace_day If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @export
-new_els <- function(add_name = FALSE, replace_day = FALSE) {
+new_elsjp <- function(add_name = FALSE, replace_day = FALSE) {
   if(replace_day == FALSE){
     day_name <- Sys.Date()
   }else{
