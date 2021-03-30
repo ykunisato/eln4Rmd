@@ -17,56 +17,49 @@ remotes::install_github("ykunisato/eln4Rmd")
 
 ## 使用法
 
-new_elnjp()で日付のついた電子ラボノート用Rmdファイルが作成されます。
+### OSFやGitHubと連携しない場合
+
+elnjp()で日付のついた電子ラボノート用Rmdファイルが作成されます。なお，日付の後に何か名前を追加したい場合は，add_nameで指定ください。また，今日の日付じゃない日付で作成したい場合は，replace_dayで指定ください。
 
 ``` r
 library(eln4Rmd)
-new_elnjp()
+elnjp()
 ```
 
-## 作成したMarkdownファイルを電子ラボノートとして機能させるには
+作成したラボノートにはタイムスタンプが必要ですので，手動でOSFやGitHubと連携をさせてください。
+
+### 作成したMarkdownファイルを電子ラボノートとして機能させるには
 
 ＜準備中＞
 
-## GitHubにアップロードして，osfと連携させる方法
 
 
-＜準備中＞
+### osfに連携させる場合
 
+ブラウザからOSFでプロジェクトを作成し，Labnoteなどの名前のコンポーネントを作ります。そして，そのコンポーネントをクリックして，そのURLをコピーしておきます。また，OSFでは，PAT(Personal Access Token)を取得しておきます（こちらは厳重に保管ください）。
 
-## osfrを使ってosfにアップロードする方法
-### 使用準備
+それができたら，Rで作業します。まずは，osfrのosf_auth()でPATの登録をします。
 
 ``` r
 library(osfr)
 osf_auth("OSFのPAT(Personal Access Token)をコピペする")
 ```
 
-### コンポーネントの追加
+elnjp_osf()で電子ラボノート用Rmdファイルが作成されます。その際に，OSFのURLを引数に入れてください。
 
 ``` r
-eln4osfr_node <- osf_retrieve_node("OSFのプロジェクトのURL")
-osf_create_component(eln4osfr_node, title = "labnote")
+library(eln4Rmd)
+elnjp_osf(osf="https://osf.io/hq8d9/")
 ```
 
-### 作成したlabnoteコンポーネントの情報を取得
+ラボノートへの記載ができたら，Knitをすると，markdown形式で出力され，それがOSFの指定したURLにアップロードされます（たまにうまく行かないので，今後対応します・・・）。
+
+### GitHubにアップロードして，osfと連携させる方法
+
+
+＜準備中＞自動でコミットして，githubにプッシュするようにするか悩み中・・・
 
 ``` r
-labnote <- osf_retrieve_node("OSFのプロジェクト内のlanoteコンポーネントのURL")
-```
-
-### labnoteコンポーネントにファイルをアップロード
-
-``` r
-# 画像を別にアップする
-osf_upload(labnote, path = "demo.png")
-# ラボノートをアップする
-osf_upload(labnote, path = "2021_03_25.md")
-# 上書きする場合
-osf_upload(labnote, path = "2021_03_22.md",conflicts = "overwrite")
-```
-pathを"."と指定するとカレントディレクトリのファイルがまるごとosfにアップロードされる。ラボノートが複数ある場合は便利です。ただ，conflictsを"overwrite"とすると毎回ファイルを上書きするので，バージョン管理として不適切になります。新規にファイルを作成して，既存のファイルに変更を加えてない場合は，conflictsを"skip"にすると良いかと思います。より高度なバージョン管理をする場合は，GitHubの利用をオススメします。
-
-``` r
-osf_upload(my_project,path=".", conflicts = "skip")
+library(eln4Rmd)
+elnjp_git()
 ```

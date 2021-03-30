@@ -1,7 +1,7 @@
 Package: eln4Rmd
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(person("Yoshihiko", "Kunisato", email = "ykunisato@psy.senshu-u.ac.jp", role = c("cre","aut")), person("Koji", "Kosugi", email = "kosugi@psy.senshu-u.ac.jp", role = c("cre","aut")))
 Author: Yoshihiko Kunisato [aut, cre],Koji Kosugi [aut, cre]
 Maintainer: Yoshihiko Kunisato <ykunisato@psy.senshu-u.ac.jp>
@@ -14,4 +14,6 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
-    rmarkdown
+    rmarkdown,
+    osfr,
+    stringr
