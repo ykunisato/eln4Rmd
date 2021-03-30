@@ -56,10 +56,9 @@ elnjp_osf(osf="https://osf.io/hq8d9/")
 
 ### GitHubにアップロードして，osfと連携させる方法
 
+まず，作業するプロジェクトをGitリポジトリにしておく。そして，gitcredsパッケージのgitcreds_set()で必要事項を追加しておく。
 
-＜準備中＞自動でコミットして，githubにプッシュするように設定する。confidentialとgertを使う。
-
-
+以下を実行すると，Rmdファイルができるので，その日のラボノートを作成して，Knitする。KnitするとMarkdownファイルが出力され，変更されたファイルにコミットして，プッシュする。
 
 ``` r
 library(eln4Rmd)
