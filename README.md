@@ -57,7 +57,7 @@ elnjp_osf(osf="https://osf.io/hq8d9/")
 ### GitHubにアップロードして，osfと連携させる方法
 
 
-＜準備中＞自動でコミットして，githubにプッシュするようにするか悩み中・・・
+＜準備中＞自動でコミットして，githubにプッシュするように設定
 
 ``` r
 library(eln4Rmd)
