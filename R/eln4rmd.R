@@ -132,27 +132,23 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
 #' @title render function for Japanese e-labnotebook with GitHub
 #' @importFrom rmarkdown render
 #' @importFrom rmarkdown md_document
+#' @importFrom gert git_add
+#' @importFrom gert git_commit_all
+#' @importFrom gert git_push
+#' @importFrom gert git_info
+#' @importFrom gert git_status
+#' @importFrom stringr str_replace
 #' @param Rmd_file file name of R Markdown file
 #' @export
 render_elnjp_git <- function(Rmd_file) {
-  render(Rmd_file, "md_document")
-  message("Git\u30bf\u30d6\u3067\uff0cCommit\u3092\u30af\u30ea\u30c3\u30af\u3057\u3066\uff0c\u4f5c\u6210\u3057\u305f\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u30b3\u30df\u30c3\u30c8\uff06\u30d7\u30c3\u30b7\u30e5\u3057\u307e\u3057\u3087\u3046\uff01")
+  y <- try(gert::git_info(), silent = TRUE)
+  if (class(y) == "try-error") {
+    message("\u4f5c\u696d\u3055\u308c\u3066\u3044\u308b\u5834\u6240\u306fGit\u30ea\u30dd\u30b8\u30c8\u30ea\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002Git\u306e\u8a2d\u5b9a\u3092\u3057\u3066\u304b\u3089\uff0cKnit\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
+  }else{
+    render(Rmd_file, "md_document")
+    # add & commit & push
+    git_add(git_status()$file)
+    git_commit_all(paste0(str_replace(Rmd_file, pattern = ".Rmd", replacement = ""), "\u306e\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u95a2\u9023\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u3082\u30b3\u30df\u30c3\u30c8\u3057\u307e\u3059"))
+    git_push()
+  }
 }
-
-#test
-library(gert)
-git_add("README.md")
-
-# all
-git_add(git_status()$file)
-git_commit_all("ラボノートを作成してGitHubにアップしました")
-
-
-repo <- repository(getwd())
-if(!exists("repo")){a <- 2}
-add(repo, "README.md")
-commit(repo, "git2rのテスト")
-pull(repo)
-status(repo)
-push(repo, "origin", "refs/heads/master",credentials = )
-usethis::use_git_credentials(credentials = deprecated())
