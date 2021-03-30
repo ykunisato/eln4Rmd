@@ -138,3 +138,21 @@ render_elnjp_git <- function(Rmd_file) {
   render(Rmd_file, "md_document")
   message("Git\u30bf\u30d6\u3067\uff0cCommit\u3092\u30af\u30ea\u30c3\u30af\u3057\u3066\uff0c\u4f5c\u6210\u3057\u305f\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u30b3\u30df\u30c3\u30c8\uff06\u30d7\u30c3\u30b7\u30e5\u3057\u307e\u3057\u3087\u3046\uff01")
 }
+
+#test
+library(gert)
+git_add("README.md")
+
+# all
+git_add(git_status()$file)
+git_commit_all("ラボノートを作成してGitHubにアップしました")
+
+
+repo <- repository(getwd())
+if(!exists("repo")){a <- 2}
+add(repo, "README.md")
+commit(repo, "git2rのテスト")
+pull(repo)
+status(repo)
+push(repo, "origin", "refs/heads/master",credentials = )
+usethis::use_git_credentials(credentials = deprecated())
