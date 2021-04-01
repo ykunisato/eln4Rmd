@@ -93,6 +93,7 @@ render_elnjp_osf <- function(Rmd_file, osf) {
 #' @importFrom utils file.edit
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_replace
+#' @importFrom rstudioapi navigateToFile
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
 #' @param replace_day If you want to use the specified date as the file name
@@ -125,7 +126,7 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  #file.edit(file_name)
+  navigateToFile(file_name)
 }
 
 
@@ -148,6 +149,11 @@ render_elnjp_git <- function(Rmd_file) {
   }else{
     # covert Rmd file to PDF file
     tmp_wd <- getwd()
+    # make pdf firectory
+    if(!dir.exists(file.path(tmp_wd, "pdf"))){
+      dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
+    }
+
     template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
                                      package = "eln4Rmd"
     )
@@ -158,10 +164,6 @@ render_elnjp_git <- function(Rmd_file) {
       )
     format_pdf$inherits <- "pdf_document"
     render(Rmd_file, format_pdf)
-    # make pdf firectory
-    if(!dir.exists(file.path(tmp_wd, "pdf"))){
-      dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
-    }
     file.move(paste0(tmp_wd,"/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"),
               paste0(tmp_wd,"/pdf/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"))
     # add & commit & push
@@ -170,7 +172,3 @@ render_elnjp_git <- function(Rmd_file) {
     git_push()
   }
 }
-
-
-
-

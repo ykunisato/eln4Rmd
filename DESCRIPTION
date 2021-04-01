@@ -18,4 +18,5 @@ Imports:
     osfr,
     stringr,
     gert,
-    filesstrings
+    filesstrings,
+    rstudioapi
