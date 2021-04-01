@@ -78,10 +78,9 @@ elnjp_osf <- function(add_name = FALSE,
 #' @importFrom osfr osf_upload
 #' @importFrom stringr str_replace
 #' @param Rmd_file file name of R Markdown file
-#' @param osf_rmd URL of rmd directory in OSF
-#' @param osf_pdf URL of pdf directory in OSF
+#' @param osf URL of pdf directory in OSF
 #' @export
-render_elnjp_osf <- function(Rmd_file, osf_rmd, osf_pdf) {
+render_elnjp_osf <- function(Rmd_file, osf) {
   # covert Rmd file to PDF file
   template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
                                    package = "eln4Rmd")
@@ -91,10 +90,8 @@ render_elnjp_osf <- function(Rmd_file, osf_rmd, osf_pdf) {
     highlight = "tango")
   format_pdf$inherits <- "pdf_document"
   render(Rmd_file, format_pdf)
-  labnote_rmd <- osf_retrieve_node(osf_rmd)
-  labnote_pdf <- osf_retrieve_node(osf_pdf)
+  labnote_pdf <- osf_retrieve_node(osf)
   pdf_file_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = ".pdf")
-  osf_upload(labnote_rmd, path = Rmd_file, conflicts = "overwrite")
   osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
 }
 

@@ -4,14 +4,12 @@
 \alias{render_elnjp_osf}
 \title{render function for Japanese e-labnotebook with OSF}
 \usage{
-render_elnjp_osf(Rmd_file, osf_rmd, osf_pdf)
+render_elnjp_osf(Rmd_file, osf)
 }
 \arguments{
 \item{Rmd_file}{file name of R Markdown file}
 
-\item{osf_rmd}{URL of rmd directory in OSF}
-
-\item{osf_pdf}{URL of pdf directory in OSF}
+\item{osf}{URL of pdf directory in OSF}
 }
 \description{
 render function for Japanese e-labnotebook with OSF
