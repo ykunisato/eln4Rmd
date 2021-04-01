@@ -2,21 +2,21 @@
 #' @importFrom utils file.edit
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
-#' @param replace_day If you want to use the specified date as the file name
+#' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @export
-elnjp <- function(add_name = FALSE, replace_day = FALSE) {
+elnjp <- function(add_name = FALSE, replace_date = FALSE) {
   # set file name
-  if(replace_day == FALSE){
-    day_name <- Sys.Date()
+  if(replace_date == FALSE){
+    date_name <- Sys.Date()
   }else{
-    day_name <- replace_day
+    date_name <- replace_date
   }
 
   if(add_name == FALSE){
-    file_name <- paste0(day_name, ".Rmd")
+    file_name <- paste0(date_name, ".Rmd")
   }else{
-    file_name <- paste0(day_name, add_name, ".Rmd")
+    file_name <- paste0(date_name, add_name, ".Rmd")
   }
   # make and open Rmd file
   path_skeleton <- system.file("rmarkdown/templates/eln_jp/skeleton/skeleton.Rmd",package = "eln4Rmd")
@@ -30,28 +30,28 @@ elnjp <- function(add_name = FALSE, replace_day = FALSE) {
 #' @importFrom rstudioapi navigateToFile
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
-#' @param replace_day If you want to use the specified date as the file name
+#' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @param osf If you want to upload to OSF, add OSF URL in this argument.
 #' @export
 elnjp_osf <- function(add_name = FALSE,
-                      replace_day = FALSE,
+                      replace_date = FALSE,
                       osf) {
 
   if(is.null(osf)){
     stop("Please add the URL of OSF to the osf argument!")
   }
   # set file name
-  if(replace_day == FALSE){
-    day_name <- Sys.Date()
+  if(replace_date == FALSE){
+    date_name <- Sys.Date()
   }else{
-    day_name <- replace_day
+    date_name <- replace_date
   }
 
   if(add_name == FALSE){
-    file_name <- paste0(day_name, ".Rmd")
+    file_name <- paste0(date_name, ".Rmd")
   }else{
-    file_name <- paste0(day_name, add_name, ".Rmd")
+    file_name <- paste0(date_name, add_name, ".Rmd")
   }
 
   # set Rmd template file
@@ -64,6 +64,8 @@ elnjp_osf <- function(add_name = FALSE,
     st <- text_skeleton[i]
     st <- str_replace(st, pattern = "output: md_document",
                       replacement = paste0("output: eln4Rmd::render_elnjp_osf(Rmd_file = '",file_name, "' ,osf = '", osf , "')"))
+    st <- str_replace(st, pattern = "date_research <- Sys.Date()",
+                      replacement = paste0("date_research <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
@@ -102,21 +104,21 @@ render_elnjp_osf <- function(Rmd_file, osf) {
 #' @importFrom rstudioapi navigateToFile
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
-#' @param replace_day If you want to use the specified date as the file name
+#' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @export
-elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
+elnjp_git <- function(add_name = FALSE, replace_date = FALSE) {
   # set file name
-  if(replace_day == FALSE){
-    day_name <- Sys.Date()
+  if(replace_date == FALSE){
+    date_name <- Sys.Date()
   }else{
-    day_name <- replace_day
+    date_name <- replace_date
   }
 
   if(add_name == FALSE){
-    file_name <- paste0(day_name, ".Rmd")
+    file_name <- paste0(date_name, ".Rmd")
   }else{
-    file_name <- paste0(day_name, add_name, ".Rmd")
+    file_name <- paste0(date_name, add_name, ".Rmd")
   }
 
   # set Rmd template file
@@ -129,6 +131,8 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
     st <- text_skeleton[i]
     st <- str_replace(st, pattern = "output: md_document",
                       replacement = paste0("output: eln4Rmd::render_elnjp_git(Rmd_file = '",file_name, "')"))
+    st <- str_replace(st, pattern = "date_research <- Sys.Date()",
+                      replacement = paste0("date_research <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)

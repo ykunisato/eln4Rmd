@@ -4,13 +4,13 @@
 \alias{elnjp_git}
 \title{make new Japanese e-labnotebook with GitHub}
 \usage{
-elnjp_git(add_name = FALSE, replace_day = FALSE)
+elnjp_git(add_name = FALSE, replace_date = FALSE)
 }
 \arguments{
 \item{add_name}{If you want to add the name after the date as the file name,
 add this argument.}
 
-\item{replace_day}{If you want to use the specified date as the file name
+\item{replace_date}{If you want to use the specified date as the file name
 instead of today's date, add this argument.}
 }
 \description{

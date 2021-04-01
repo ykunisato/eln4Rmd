@@ -4,13 +4,13 @@
 \alias{elnjp_osf}
 \title{make new Japanese e-labnotebook with OSF}
 \usage{
-elnjp_osf(add_name = FALSE, replace_day = FALSE, osf)
+elnjp_osf(add_name = FALSE, replace_date = FALSE, osf)
 }
 \arguments{
 \item{add_name}{If you want to add the name after the date as the file name,
 add this argument.}
 
-\item{replace_day}{If you want to use the specified date as the file name
+\item{replace_date}{If you want to use the specified date as the file name
 instead of today's date, add this argument.}
 
 \item{osf}{If you want to upload to OSF, add OSF URL in this argument.}
