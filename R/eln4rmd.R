@@ -73,7 +73,7 @@ elnjp_osf <- function(add_name = FALSE,
 
 #' @title render function for Japanese e-labnotebook with OSF
 #' @importFrom rmarkdown render
-#' @importFrom rmarkdown md_document
+#' @importFrom rmarkdown pdf_document
 #' @importFrom osfr osf_retrieve_node
 #' @importFrom osfr osf_upload
 #' @importFrom stringr str_replace
@@ -81,12 +81,25 @@ elnjp_osf <- function(add_name = FALSE,
 #' @param osf URL of OSF
 #' @export
 render_elnjp_osf <- function(Rmd_file, osf) {
-  render(Rmd_file, "md_document")
+  # make pdf firectory
+  tmp_wd <- getwd()
+  file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
+  if(!dir.exists(file.path(tmp_wd, "pdf"))){
+    dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
+  }
+  # covert Rmd file to PDF file
+  template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
+                                   package = "eln4Rmd")
+  format_pdf <- pdf_document(
+    latex_engine = "xelatex",
+    template = template_tex_file,
+    highlight = "tango")
+  format_pdf$inherits <- "pdf_document"
+  render(Rmd_file, format_pdf)
+  file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
+            paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
   labnote <- osf_retrieve_node(osf)
-  md_file_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = ".md")
-  files_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = "_files")
-  osf_upload(labnote, path = md_file_name, conflicts = "overwrite")
-  osf_upload(labnote, path = files_name, conflicts = "overwrite")
+  osf_upload(labnote, path=".", conflicts = "overwrite")
 }
 
 #' @title make new Japanese e-labnotebook with GitHub
@@ -146,26 +159,23 @@ render_elnjp_git <- function(Rmd_file) {
   if (class(y) == "try-error") {
     message("\u4f5c\u696d\u3055\u308c\u3066\u3044\u308b\u5834\u6240\u306fGit\u30ea\u30dd\u30b8\u30c8\u30ea\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002Git\u306e\u8a2d\u5b9a\u3092\u3057\u3066\u304b\u3089\uff0cKnit\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
   }else{
-    # covert Rmd file to PDF file
+    # make pdf firectory
     tmp_wd <- getwd()
     file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
-    # make pdf firectory
     if(!dir.exists(file.path(tmp_wd, "pdf"))){
       dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
     }
-
+    # covert Rmd file to PDF file
     template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
-                                     package = "eln4Rmd"
-    )
+                                     package = "eln4Rmd")
     format_pdf <- pdf_document(
       latex_engine = "xelatex",
       template = template_tex_file,
-      highlight = "tango"
-      )
+      highlight = "tango")
     format_pdf$inherits <- "pdf_document"
     render(Rmd_file, format_pdf)
     file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
-              paste0(tmp_wd,"/pdf/",file_name,".pdf"))
+              paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
     # add & commit & push
     git_add(git_status()$file)
     git_commit_all(paste0(str_replace(Rmd_file, pattern = ".Rmd", replacement = ""), "\u306e\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u95a2\u9023\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u3082\u30b3\u30df\u30c3\u30c8\u3057\u307e\u3059"))
