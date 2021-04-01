@@ -45,20 +45,20 @@ library(osfr)
 osf_auth("OSFのPAT(Personal Access Token)をコピペする")
 ```
 
-elnjp_osf()で電子ラボノート用Rmdファイルが作成されます。その際に，OSFのURLを引数に入れてください。
+elnjp_osf()で電子ラボノート用Rmdファイルが作成されます。その際に，上記で作成したOSFのLabnoteコンポーネントのURLを引数に入れてください。
 
 ``` r
 library(eln4Rmd)
 elnjp_osf(osf="https://osf.io/hq8d9/")
 ```
 
-ラボノートへの記載ができたら，Knitをすると，markdown形式で出力され，それがOSFの指定したURLにアップロードされます（たまにうまく行かないので，今後対応します・・・）。
+ラボノートへの記載ができたら，Knitをすると，PDF形式で出力され，それがOSFの指定したURLにアップロードされます（PDFのみがアップロードされます）。
 
 ### GitHubにアップロードして，osfと連携させる方法
 
 まず，作業するプロジェクトをGitリポジトリにしておく。そして，gitcredsパッケージのgitcreds_set()で必要事項を追加しておく。
 
-以下を実行すると，Rmdファイルができるので，その日のラボノートを作成して，Knitする。KnitするとMarkdownファイルが出力され，変更されたファイルにコミットして，プッシュする。
+以下を実行すると，Rmdファイルができるので，その日のラボノートを作成して，Knitする。KnitするとMarkdownファイルが出力され，変更されたファイルにコミットして，プッシュします。
 
 ``` r
 library(eln4Rmd)
