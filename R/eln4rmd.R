@@ -27,7 +27,7 @@ elnjp <- function(add_name = FALSE, replace_day = FALSE) {
 #' @title make new Japanese e-labnotebook with OSF
 #' @importFrom stringr str_detect
 #' @importFrom stringr str_replace
-#' @importFrom utils file.edit
+#' @importFrom rstudioapi navigateToFile
 #' @param add_name If you want to add the name after the date as the file name,
 #' add this argument.
 #' @param replace_day If you want to use the specified date as the file name
@@ -67,7 +67,7 @@ elnjp_osf <- function(add_name = FALSE,
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  file.edit(file_name)
+  navigateToFile(file_name)
 }
 
 
@@ -139,7 +139,6 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
 #' @importFrom gert git_info
 #' @importFrom gert git_status
 #' @importFrom stringr str_replace
-#' @importFrom filesstrings file.move
 #' @param Rmd_file file name of R Markdown file
 #' @export
 render_elnjp_git <- function(Rmd_file) {
@@ -149,6 +148,7 @@ render_elnjp_git <- function(Rmd_file) {
   }else{
     # covert Rmd file to PDF file
     tmp_wd <- getwd()
+    file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
     # make pdf firectory
     if(!dir.exists(file.path(tmp_wd, "pdf"))){
       dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
@@ -164,8 +164,8 @@ render_elnjp_git <- function(Rmd_file) {
       )
     format_pdf$inherits <- "pdf_document"
     render(Rmd_file, format_pdf)
-    file.move(paste0(tmp_wd,"/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"),
-              paste0(tmp_wd,"/pdf/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"))
+    file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
+              paste0(tmp_wd,"/pdf/",file_name,".pdf"))
     # add & commit & push
     git_add(git_status()$file)
     git_commit_all(paste0(str_replace(Rmd_file, pattern = ".Rmd", replacement = ""), "\u306e\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u95a2\u9023\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u3082\u30b3\u30df\u30c3\u30c8\u3057\u307e\u3059"))
