@@ -82,12 +82,6 @@ elnjp_osf <- function(add_name = FALSE,
 #' @param osf_pdf URL of pdf directory in OSF
 #' @export
 render_elnjp_osf <- function(Rmd_file, osf_rmd, osf_pdf) {
-  # make pdf firectory
-  tmp_wd <- getwd()
-  file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
-  if(!dir.exists(file.path(tmp_wd, "pdf"))){
-    dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
-  }
   # covert Rmd file to PDF file
   template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
                                    package = "eln4Rmd")
@@ -97,8 +91,6 @@ render_elnjp_osf <- function(Rmd_file, osf_rmd, osf_pdf) {
     highlight = "tango")
   format_pdf$inherits <- "pdf_document"
   render(Rmd_file, format_pdf)
-  file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
-            paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
   labnote_rmd <- osf_retrieve_node(osf_rmd)
   labnote_pdf <- osf_retrieve_node(osf_pdf)
   pdf_file_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = ".pdf")
