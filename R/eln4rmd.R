@@ -78,9 +78,10 @@ elnjp_osf <- function(add_name = FALSE,
 #' @importFrom osfr osf_upload
 #' @importFrom stringr str_replace
 #' @param Rmd_file file name of R Markdown file
-#' @param osf URL of OSF
+#' @param osf_rmd URL of rmd directory in OSF
+#' @param osf_pdf URL of pdf directory in OSF
 #' @export
-render_elnjp_osf <- function(Rmd_file, osf) {
+render_elnjp_osf <- function(Rmd_file, osf_rmd, osf_pdf) {
   # make pdf firectory
   tmp_wd <- getwd()
   file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
@@ -98,8 +99,11 @@ render_elnjp_osf <- function(Rmd_file, osf) {
   render(Rmd_file, format_pdf)
   file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
             paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
-  labnote <- osf_retrieve_node(osf)
-  osf_upload(labnote, path=".", conflicts = "overwrite")
+  labnote_rmd <- osf_retrieve_node(osf_rmd)
+  labnote_pdf <- osf_retrieve_node(osf_pdf)
+  pdf_file_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = ".pdf")
+  osf_upload(labnote_rmd, path = Rmd_file, conflicts = "overwrite")
+  osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
 }
 
 #' @title make new Japanese e-labnotebook with GitHub
