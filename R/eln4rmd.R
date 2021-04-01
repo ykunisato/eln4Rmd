@@ -125,7 +125,7 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  file.edit(file_name)
+  #file.edit(file_name)
 }
 
 
@@ -138,6 +138,7 @@ elnjp_git <- function(add_name = FALSE, replace_day = FALSE) {
 #' @importFrom gert git_info
 #' @importFrom gert git_status
 #' @importFrom stringr str_replace
+#' @importFrom filesstrings file.move
 #' @param Rmd_file file name of R Markdown file
 #' @export
 render_elnjp_git <- function(Rmd_file) {
@@ -152,8 +153,8 @@ render_elnjp_git <- function(Rmd_file) {
     format_pdf$inherits <- "pdf_document"
     render(Rmd_file, format_pdf)
     # make pdf firectory
-    if(!dir.exists(file.path(path, "pdf"))){
-      dir.create(file.path(path, "pdf"), showWarnings = FALSE)
+    if(!dir.exists(file.path(getwd(), "pdf"))){
+      dir.create(file.path(getwd(), "pdf"), showWarnings = FALSE)
     }
     tmp_wd <- getwd()
     file.move(paste0(getwd(),"/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"),
