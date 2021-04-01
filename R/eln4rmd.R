@@ -146,19 +146,24 @@ render_elnjp_git <- function(Rmd_file) {
   if (class(y) == "try-error") {
     message("\u4f5c\u696d\u3055\u308c\u3066\u3044\u308b\u5834\u6240\u306fGit\u30ea\u30dd\u30b8\u30c8\u30ea\u3067\u306f\u3042\u308a\u307e\u305b\u3093\u3002Git\u306e\u8a2d\u5b9a\u3092\u3057\u3066\u304b\u3089\uff0cKnit\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
   }else{
+    # covert Rmd file to PDF file
+    tmp_wd <- getwd()
+    template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
+                                     package = "eln4Rmd"
+    )
     format_pdf <- pdf_document(
       latex_engine = "xelatex",
+      template = template_tex_file,
       highlight = "tango"
       )
     format_pdf$inherits <- "pdf_document"
     render(Rmd_file, format_pdf)
     # make pdf firectory
-    if(!dir.exists(file.path(getwd(), "pdf"))){
-      dir.create(file.path(getwd(), "pdf"), showWarnings = FALSE)
+    if(!dir.exists(file.path(tmp_wd, "pdf"))){
+      dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
     }
-    tmp_wd <- getwd()
-    file.move(paste0(getwd(),"/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"),
-              paste0(getwd(),"/pdf/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"))
+    file.move(paste0(tmp_wd,"/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"),
+              paste0(tmp_wd,"/pdf/",strsplit(Rmd_file, ".Rmd")[[1]],".pdf"))
     # add & commit & push
     git_add(git_status()$file)
     git_commit_all(paste0(str_replace(Rmd_file, pattern = ".Rmd", replacement = ""), "\u306e\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u95a2\u9023\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u3082\u30b3\u30df\u30c3\u30c8\u3057\u307e\u3059"))
