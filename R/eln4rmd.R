@@ -8,7 +8,7 @@
 elnjp <- function(add_name = FALSE, replace_date = FALSE) {
   # set file name
   if(replace_date == FALSE){
-    date_name <- Sys.Date()
+    date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
   }else{
     date_name <- replace_date
   }
@@ -43,7 +43,7 @@ elnjp_osf <- function(add_name = FALSE,
   }
   # set file name
   if(replace_date == FALSE){
-    date_name <- Sys.Date()
+    date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
   }else{
     date_name <- replace_date
   }
@@ -110,7 +110,7 @@ render_elnjp_osf <- function(Rmd_file, osf) {
 elnjp_git <- function(add_name = FALSE, replace_date = FALSE) {
   # set file name
   if(replace_date == FALSE){
-    date_name <- Sys.Date()
+    date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
   }else{
     date_name <- replace_date
   }
