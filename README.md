@@ -38,12 +38,10 @@ elnjp()
 
 ブラウザからOSFでプロジェクトを作成し，Labnoteなどの名前のコンポーネントを作ります。そして，そのコンポーネントをクリックして，そのURLをコピーしておきます。また，OSFでは，PAT(Personal Access Token)を取得しておきます（こちらは厳重に保管ください）。
 
-それができたら，Rで作業します。まずは，osfrのosf_auth()でPATの登録をします。
+そして，home directoryに.Renvironを作って，以下を追加してください（これを作る用の関数を書くかもしれません）。
 
-``` r
-library(osfr)
-osf_auth("OSFのPAT(Personal Access Token)をコピペする")
-```
+OSF_PAT=ご自身のOSFのPAT
+
 
 elnjp_osf()で電子ラボノート用Rmdファイルが作成されます。その際に，上記で作成したOSFのLabnoteコンポーネントのURLを引数に入れてください。
 
@@ -53,6 +51,12 @@ elnjp_osf(osf="https://osf.io/hq8d9/")
 ```
 
 ラボノートへの記載ができたら，Knitをすると，PDF形式で出力され，それがOSFの指定したURLにアップロードされます（PDFのみがアップロードされます）。
+
+replace_dateに別の日をいれると，今日じゃない日付でラボノートが作られます。
+
+``` r
+elnjp_osf(replace_date = "2021-03-25", osf="https://osf.io/5yrhf/")
+``` 
 
 ### GitHubにアップロードして，osfと連携させる方法
 
