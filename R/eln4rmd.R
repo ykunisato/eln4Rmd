@@ -67,7 +67,7 @@ elnjp_osf <- function(add_name = FALSE,
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
     st <- str_replace(st, pattern = "# date_write",
-                      replacement = paste0("date_research <- '",date_name, "'"))
+                      replacement = paste0("date_write <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
@@ -136,7 +136,7 @@ elnjp_git <- function(add_name = FALSE, replace_date = FALSE) {
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
     st <- str_replace(st, pattern = "# date_write",
-                      replacement = paste0("date_research <- '",date_name, "'"))
+                      replacement = paste0("date_write <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
