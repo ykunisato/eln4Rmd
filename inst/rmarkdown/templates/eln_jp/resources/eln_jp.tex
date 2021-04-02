@@ -1,6 +1,6 @@
 % Template for e-labnote
 \documentclass[11pt,a4paper,xelatex,ja=standard]{bxjsarticle}
-\geometry{left = 25mm, right = 25mm, top = 25mm, bottom = 25mm, heightrounded}
+\geometry{left = 25mm, top = 25mm}
 \renewcommand{\figurename}{Figure}
 \renewcommand{\tablename}{Table}
 $if(beamer)$
@@ -203,7 +203,7 @@ $if(beamer)$
 \geometry{$for(geometry)$$geometry$$sep$,$endfor$}
 $else$
 %\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
-\geometry{left = 25mm, right = 25mm, top = 25mm, bottom = 25mm, heightrounded}
+\geometry{left = 25mm, top = 25mm}
 $endif$
 $endif$
 $if(beamer)$
