@@ -3,7 +3,7 @@ output: md_document
 ---
 ```{r include=FALSE}
 # date_research
-date_write <- Sys.Date()
+# date_write
 ```
 
 # `r sprintf('%s',date_research)`のラボノート

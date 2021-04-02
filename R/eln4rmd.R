@@ -66,6 +66,8 @@ elnjp_osf <- function(add_name = FALSE,
                       replacement = paste0("output: eln4Rmd::render_elnjp_osf(Rmd_file = '",file_name, "' ,osf = '", osf , "')"))
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
+    st <- str_replace(st, pattern = "# date_write",
+                      replacement = paste0("date_research <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
@@ -132,6 +134,8 @@ elnjp_git <- function(add_name = FALSE, replace_date = FALSE) {
     st <- str_replace(st, pattern = "output: md_document",
                       replacement = paste0("output: eln4Rmd::render_elnjp_git(Rmd_file = '",file_name, "')"))
     st <- str_replace(st, pattern = "# date_research",
+                      replacement = paste0("date_research <- '",date_name, "'"))
+    st <- str_replace(st, pattern = "# date_write",
                       replacement = paste0("date_research <- '",date_name, "'"))
     writeLines(st, tmp_rmd)
   }
