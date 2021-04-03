@@ -9,8 +9,10 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
+    date_write <- date_name
   }else{
     date_name <- replace_date
+    date_write <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
   }
 
   if(add_name == FALSE){
@@ -27,7 +29,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
     st <- str_replace(st, pattern = "# date_write",
-                      replacement = paste0("date_write <- '",date_name, "'"))
+                      replacement = paste0("date_write <- '",date_write, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
@@ -47,8 +49,10 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
+    date_write <- date_name
   }else{
     date_name <- replace_date
+    date_write <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
   }
 
   if(add_name == FALSE){
@@ -70,7 +74,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
     st <- str_replace(st, pattern = "# date_write",
-                      replacement = paste0("date_write <- '",date_name, "'"))
+                      replacement = paste0("date_write <- '",date_write, "'"))
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
