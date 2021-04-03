@@ -144,7 +144,6 @@ up_elnjp_osf  <- function(add_name = FALSE,replace_date = FALSE, osf) {
 up_elnjp_git  <- function(add_name = FALSE,replace_date = FALSE) {
   # make pdf firectory
   tmp_wd <- getwd()
-  file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
   if(!dir.exists(file.path(tmp_wd, "pdf"))){
     dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
   }
