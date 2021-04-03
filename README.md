@@ -76,7 +76,7 @@ eln4Rmd::elnjp_pdf()
 - 作成したPDFを確認してから，(2)で調べたOSFでのURLをいれて，以下の関数を実行するとOSFにアップロードされます（OSFに上でタイムスタンプが押されます）。
 
 ``` r
-eln4Rmd::elnjp_osf(osf="OSFのURL")
+eln4Rmd::up_elnjp_osf(osf="OSFのURL")
 ```
 
 - 一度(1)と(2)の設定ができていれば，あとは，毎日(3)を行うだけです（関数としては２回実行するだけ）。
