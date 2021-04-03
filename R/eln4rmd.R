@@ -89,12 +89,6 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
 #' @param Rmd_file file name of R Markdown file
 #' @export
 render_elnjp_pdf <- function(Rmd_file) {
-  # make pdf firectory
-  tmp_wd <- getwd()
-  file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
-  if(!dir.exists(file.path(tmp_wd, "pdf"))){
-    dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
-  }
   # covert Rmd file to PDF file
   template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
                                    package = "eln4Rmd")
@@ -104,9 +98,6 @@ render_elnjp_pdf <- function(Rmd_file) {
     highlight = "tango")
   format_pdf$inherits <- "pdf_document"
   render(Rmd_file, format_pdf)
-  # copy PDF
-  file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
-            paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
 }
 
 #' @title upload Japanese e-labnotebook to OSF
@@ -151,6 +142,12 @@ up_elnjp_osf  <- function(add_name = FALSE,replace_date = FALSE, osf) {
 #' instead of today's date, add this argument.
 #' @export
 up_elnjp_git  <- function(add_name = FALSE,replace_date = FALSE) {
+  # make pdf firectory
+  tmp_wd <- getwd()
+  file_name <- strsplit(Rmd_file, ".Rmd")[[1]]
+  if(!dir.exists(file.path(tmp_wd, "pdf"))){
+    dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
+  }
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -163,6 +160,9 @@ up_elnjp_git  <- function(add_name = FALSE,replace_date = FALSE) {
   }else{
     file_name <- paste0(date_name, "_" ,add_name)
   }
+  # copy PDF
+  file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
+            paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
   # add & commit & push
   git_add(git_status()$file)
   git_commit_all(paste0(file_name, "\u306e\u30e9\u30dc\u30ce\u30fc\u30c8\u3092\u4f5c\u6210\u3057\u307e\u3057\u305f\u3002\u95a2\u9023\u3059\u308b\u30d5\u30a1\u30a4\u30eb\u3082\u30b3\u30df\u30c3\u30c8\u3057\u307e\u3059"))
