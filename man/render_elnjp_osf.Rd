@@ -2,15 +2,13 @@
 % Please edit documentation in R/eln4rmd.R
 \name{render_elnjp_osf}
 \alias{render_elnjp_osf}
-\title{render function for Japanese e-labnotebook with OSF}
+\title{render function for Japanese e-labnotebook in PDF}
 \usage{
-render_elnjp_osf(Rmd_file, osf)
+render_elnjp_osf(Rmd_file)
 }
 \arguments{
 \item{Rmd_file}{file name of R Markdown file}
-
-\item{osf}{URL of pdf directory in OSF}
 }
 \description{
-render function for Japanese e-labnotebook with OSF
+render function for Japanese e-labnotebook in PDF
 }
