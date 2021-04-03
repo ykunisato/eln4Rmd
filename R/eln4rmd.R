@@ -43,7 +43,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @export
-elnjp_osf <- function(add_name = FALSE,replace_date = FALSE) {
+elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -84,7 +84,7 @@ elnjp_osf <- function(add_name = FALSE,replace_date = FALSE) {
 #' @importFrom stringr str_replace
 #' @param Rmd_file file name of R Markdown file
 #' @export
-render_elnjp_osf <- function(Rmd_file) {
+render_elnjp_pdf <- function(Rmd_file) {
   # covert Rmd file to PDF file
   template_tex_file <- system.file("rmarkdown/templates/eln_jp/resources/eln_jp.tex",
                                    package = "eln4Rmd")
