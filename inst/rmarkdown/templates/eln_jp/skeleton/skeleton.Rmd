@@ -1,6 +1,7 @@
 ---
 output: md_document
 ---
+
 ```{r include=FALSE}
 # date_research
 # date_write

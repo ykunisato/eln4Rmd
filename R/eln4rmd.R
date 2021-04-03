@@ -51,7 +51,7 @@ elnjp_osf <- function(add_name = FALSE,
   if(add_name == FALSE){
     file_name <- paste0(date_name, ".Rmd")
   }else{
-    file_name <- paste0(date_name, add_name, ".Rmd")
+    file_name <- paste0(date_name, "_" ,add_name, ".Rmd")
   }
 
   # set Rmd template file
@@ -94,6 +94,7 @@ render_elnjp_osf <- function(Rmd_file, osf) {
     highlight = "tango")
   format_pdf$inherits <- "pdf_document"
   render(Rmd_file, format_pdf)
+
   labnote_pdf <- osf_retrieve_node(osf)
   pdf_file_name <- str_replace(Rmd_file, pattern = ".Rmd", replacement = ".pdf")
   osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
@@ -120,7 +121,7 @@ elnjp_git <- function(add_name = FALSE, replace_date = FALSE) {
   if(add_name == FALSE){
     file_name <- paste0(date_name, ".Rmd")
   }else{
-    file_name <- paste0(date_name, add_name, ".Rmd")
+    file_name <- paste0(date_name, "_" ,add_name, ".Rmd")
   }
 
   # set Rmd template file
