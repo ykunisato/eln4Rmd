@@ -4,7 +4,7 @@
 \alias{up_elnjp_osf}
 \title{upload Japanese e-labnotebook to OSF}
 \usage{
-up_elnjp_osf(add_name = FALSE, replace_date = FALSE, osf)
+up_elnjp_osf(add_name = FALSE, replace_date = FALSE, osf, rc = FALSE)
 }
 \arguments{
 \item{add_name}{If you want to add the name after the date as the file name,
@@ -14,6 +14,10 @@ add this argument.}
 instead of today's date, add this argument.}
 
 \item{osf}{URL of pdf directory in OSF}
+
+\item{rc}{If you are using Research Compendium of senshuRmd,
+you can create a e-labnotebook file in the "labnote" directory from the current directory.
+In that case, please set rc to TURE.}
 }
 \description{
 upload Japanese e-labnotebook to OSF
