@@ -4,8 +4,11 @@
 #' add this argument.
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
+#' @param rc If you are using Research Compendium of senshuRmd,
+#' you can create a e-labnotebook file in the "labnote" directory from the current directory.
+#' In that case, please set rc to TURE.
 #' @export
-elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
+elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -23,7 +26,13 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
   # set Rmd template file
   path_skeleton <- system.file("rmarkdown/templates/eln_jp/skeleton/skeleton.Rmd",package = "eln4Rmd")
   text_skeleton <- readLines(path_skeleton, warn = F)
-  tmp_rmd <- file(file_name, "w")
+
+  if(rc == TRUE){
+    tmp_rmd <- file(paste0("labnote/",file_name), "w")
+  }else{
+    tmp_rmd <- file(file_name, "w")
+  }
+
   for (i in 1:length(text_skeleton)) {
     st <- text_skeleton[i]
     st <- str_replace(st, pattern = "# date_research",
@@ -44,8 +53,11 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE) {
 #' add this argument.
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
+#' @param rc If you are using Research Compendium of senshuRmd,
+#' you can create a e-labnotebook file in the "labnote" directory from the current directory.
+#' In that case, please set rc to TURE.
 #' @export
-elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
+elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -66,7 +78,12 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE) {
   text_skeleton <- readLines(path_skeleton, warn = F)
 
   # set render function
-  tmp_rmd <- file(file_name, "w")
+  if(rc == TRUE){
+    tmp_rmd <- file(paste0("labnote/",file_name), "w")
+  }else{
+    tmp_rmd <- file(file_name, "w")
+  }
+
   for (i in 1:length(text_skeleton)) {
     st <- text_skeleton[i]
     st <- str_replace(st, pattern = "output: md_document",
@@ -109,8 +126,11 @@ render_elnjp_pdf <- function(Rmd_file) {
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
 #' @param osf URL of pdf directory in OSF
+#' @param rc If you are using Research Compendium of senshuRmd,
+#' you can create a e-labnotebook file in the "labnote" directory from the current directory.
+#' In that case, please set rc to TURE.
 #' @export
-up_elnjp_osf  <- function(add_name = FALSE,replace_date = FALSE, osf) {
+up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, osf, rc = FALSE) {
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -125,7 +145,12 @@ up_elnjp_osf  <- function(add_name = FALSE,replace_date = FALSE, osf) {
   }
 
   labnote_pdf <- osf_retrieve_node(osf)
-  osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
+  if(rc == TRUE){
+    osf_upload(labnote_pdf, path = paste0("labnote/",pdf_file_name), conflicts = "overwrite")
+  }else{
+    osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
+  }
+
 }
 
 
@@ -140,10 +165,18 @@ up_elnjp_osf  <- function(add_name = FALSE,replace_date = FALSE, osf) {
 #' add this argument.
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
+#' @param rc If you are using Research Compendium of senshuRmd,
+#' you can create a e-labnotebook file in the "labnote" directory from the current directory.
+#' In that case, please set rc to TURE.
 #' @export
-up_elnjp_git  <- function(add_name = FALSE,replace_date = FALSE) {
+up_elnjp_git  <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
   # make pdf firectory
   tmp_wd <- getwd()
+
+  if(rc == TRUE){
+    tmp_wd = paste0(tmp_wd, "labnote")
+  }
+
   if(!dir.exists(file.path(tmp_wd, "pdf"))){
     dir.create(file.path(tmp_wd, "pdf"), showWarnings = FALSE)
   }
@@ -159,6 +192,7 @@ up_elnjp_git  <- function(add_name = FALSE,replace_date = FALSE) {
   }else{
     file_name <- paste0(date_name, "_" ,add_name)
   }
+
   # copy PDF
   file.copy(paste0(tmp_wd,"/",file_name,".pdf"),
             paste0(tmp_wd,"/pdf/",file_name,".pdf"), overwrite = TRUE)
