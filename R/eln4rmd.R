@@ -9,6 +9,7 @@
 #' In that case, please set rc to TURE.
 #' @export
 elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
+  tmp_wd <- getwd()
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -42,7 +43,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(tmp_rmd)
+  navigateToFile(paste0(tmp_wd,tmp_rmd))
 }
 
 #' @title make new Japanese e-labnotebook in PDF
@@ -58,6 +59,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
 #' In that case, please set rc to TURE.
 #' @export
 elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
+  tmp_wd <- getwd()
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -95,7 +97,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(tmp_rmd)
+  navigateToFile(paste0(tmp_wd,tmp_rmd))
 }
 
 
