@@ -29,10 +29,10 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
   text_skeleton <- readLines(path_skeleton, warn = F)
 
   if(rc == TRUE){
-    tmp_rmd <- file(paste0("labnote/",file_name), "w")
-  }else{
-    tmp_rmd <- file(file_name, "w")
+    file_name <- paste0("labnote/",file_name)
   }
+
+  tmp_rmd <- file(file_name, "w")
 
   for (i in 1:length(text_skeleton)) {
     st <- text_skeleton[i]
@@ -43,7 +43,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(paste0(tmp_wd,tmp_rmd))
+  navigateToFile(paste0(tmp_wd,file_name))
 }
 
 #' @title make new Japanese e-labnotebook in PDF
@@ -81,10 +81,10 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
 
   # set render function
   if(rc == TRUE){
-    tmp_rmd <- file(paste0("labnote/",file_name), "w")
-  }else{
-    tmp_rmd <- file(file_name, "w")
+    file_name <- paste0("labnote/",file_name)
   }
+
+  tmp_rmd <- file(file_name, "w")
 
   for (i in 1:length(text_skeleton)) {
     st <- text_skeleton[i]
@@ -97,7 +97,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(paste0(tmp_wd,tmp_rmd))
+  navigateToFile(paste0(tmp_wd,file_name))
 }
 
 
