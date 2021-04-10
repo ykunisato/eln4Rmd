@@ -43,7 +43,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(paste0(tmp_wd,file_name))
+  navigateToFile(paste0(tmp_wd,"/",file_name))
 }
 
 #' @title make new Japanese e-labnotebook in PDF
@@ -97,7 +97,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(paste0(tmp_wd,file_name))
+  navigateToFile(paste0(tmp_wd,"/",file_name))
 }
 
 
