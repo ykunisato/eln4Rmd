@@ -129,12 +129,19 @@ render_elnjp_pdf <- function(Rmd_file) {
 #' add this argument.
 #' @param replace_date If you want to use the specified date as the file name
 #' instead of today's date, add this argument.
-#' @param osf URL of pdf directory in OSF
-#' @param rc If you are using Research Compendium of senshuRmd,
+#' @param eln_osf URL of pdf directory in OSF
+#' @param rc_osf If you are using Research Compendium of senshuRmd,
 #' you can create a e-labnotebook file in the "labnote" directory from the current directory.
 #' In that case, please set rc to TURE.
 #' @export
-up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, osf, rc = FALSE) {
+up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf){
+  # make pdf firectory
+  tmp_wd <- getwd()
+
+  if(exists("rc_osf")){
+    tmp_wd = paste0(tmp_wd, "/labnote")
+  }
+
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -148,13 +155,13 @@ up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, osf, rc = FALS
     pdf_file_name <- paste0(date_name, "_" ,add_name, ".pdf")
   }
 
-  labnote_pdf <- osf_retrieve_node(osf)
-  if(rc == TRUE){
-    osf_upload(labnote_pdf, path = paste0("labnote/",pdf_file_name), conflicts = "overwrite")
-  }else{
-    osf_upload(labnote_pdf, path = pdf_file_name, conflicts = "overwrite")
-  }
+  labnote_pdf <- osf_retrieve_node(eln_osf)
+  osf_upload(labnote_pdf, path = paste0(tmp_wd,"/",pdf_file_name), conflicts = "overwrite")
 
+  if(exists("rc_osf")){
+    rc_component <- osf_retrieve_node(rc_osf)
+    osf_upload(rc_component, path = ".", conflicts = "overwrite")
+  }
 }
 
 
