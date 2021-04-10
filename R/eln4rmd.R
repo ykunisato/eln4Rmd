@@ -178,7 +178,7 @@ up_elnjp_git  <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
   tmp_wd <- getwd()
 
   if(rc == TRUE){
-    tmp_wd = paste0(tmp_wd, "labnote")
+    tmp_wd = paste0(tmp_wd, "/labnote")
   }
 
   if(!dir.exists(file.path(tmp_wd, "pdf"))){
