@@ -24,6 +24,7 @@ elnjp_md <- function(add_name = FALSE, replace_date = FALSE, rc = FALSE) {
   }else{
     file_name <- paste0(date_name, add_name, ".Rmd")
   }
+
   # set Rmd template file
   path_skeleton <- system.file("rmarkdown/templates/eln_jp/skeleton/skeleton.Rmd",package = "eln4Rmd")
   text_skeleton <- readLines(path_skeleton, warn = F)
@@ -74,6 +75,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
   }else{
     file_name <- paste0(date_name, "_" ,add_name, ".Rmd")
   }
+  output_file_name <- file_name
 
   # set Rmd template file
   path_skeleton <- system.file("rmarkdown/templates/eln_jp/skeleton/skeleton.Rmd",package = "eln4Rmd")
@@ -89,7 +91,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
   for (i in 1:length(text_skeleton)) {
     st <- text_skeleton[i]
     st <- str_replace(st, pattern = "output: md_document",
-                      replacement = paste0("output: eln4Rmd::render_elnjp_pdf(Rmd_file = '",file_name,"')"))
+                      replacement = paste0("output: eln4Rmd::render_elnjp_pdf(Rmd_file = '",output_file_name,"')"))
     st <- str_replace(st, pattern = "# date_research",
                       replacement = paste0("date_research <- '",date_name, "'"))
     st <- str_replace(st, pattern = "# date_write",
@@ -97,7 +99,7 @@ elnjp_pdf <- function(add_name = FALSE,replace_date = FALSE, rc = FALSE) {
     writeLines(st, tmp_rmd)
   }
   close(tmp_rmd)
-  navigateToFile(paste0(tmp_wd,"/",file_name))
+  navigateToFile(paste0(tmp_wd,"/", file_name))
 }
 
 
