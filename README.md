@@ -79,7 +79,7 @@ eln4Rmd::elnjp_pdf()
 eln4Rmd::up_elnjp_osf(eln_osf = "OSFのラボノート用コンポーネントのURL")
 ```
 
-さらに，OSFのラボノートコンポーネントにラボノートをアップするのと同時に，Research Compendiumの内容のバックアップをOSFにとりたい場合は，OSFにResearch Compendium用のコンポーネントを作成して，そのURLを使って以下のように実行します。
+さらに，OSFのラボノートコンポーネントにラボノートをアップするのと同時に，Research Compendiumの内容のバックアップをOSFにとりたい場合は，OSFにResearch Compendium用のコンポーネントを作成して，そのURLを使って以下のように実行します。なお，以下を実行する場合は，Research Compendiumをカレントディレクトリに指定して，そのサブディレクトリにlabnoteフォルダが存在することが前提になります。
 
 ``` r
 eln4Rmd::up_elnjp_osf(eln_osf = "OSFのラボノート用コンポーネントのURL", rc_osf = "OSFのResearch Compendium用コンポーネントのURL")
