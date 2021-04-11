@@ -160,7 +160,7 @@ up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_os
 
   if(exists("rc_osf")){
     rc_component <- osf_retrieve_node(rc_osf)
-    osf_upload(rc_component, path = getwd(), recurse = TRUE, conflicts = "overwrite")
+    osf_upload(rc_component, path = paste0(tmp_wd, "/"), recurse = TRUE, conflicts = "overwrite")
   }
 }
 
