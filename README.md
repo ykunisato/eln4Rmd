@@ -76,7 +76,13 @@ eln4Rmd::elnjp_pdf()
 - 作成したPDFを確認してから，(2)で調べたOSFでのURLをいれて，以下の関数を実行するとOSFにアップロードされます（OSFに上でタイムスタンプが押されます）。
 
 ``` r
-eln4Rmd::up_elnjp_osf(osf="OSFのURL")
+eln4Rmd::up_elnjp_osf(eln_osf = "OSFのラボノート用コンポーネントのURL")
+```
+
+さらに，OSFのラボノートコンポーネントにラボノートをアップするのと同時に，Research Compendiumの内容のバックアップをOSFにとりたい場合は，OSFにResearch Compendium用のコンポーネントを作成して，そのURLを使って以下のように実行します。
+
+``` r
+eln4Rmd::up_elnjp_osf(eln_osf = "OSFのラボノート用コンポーネントのURL", rc_osf = "OSFのResearch Compendium用コンポーネントのURL")
 ```
 
 - 一度(1)と(2)の設定ができていれば，あとは，毎日(3)を行うだけです（関数としては２回実行するだけ）。
@@ -109,7 +115,7 @@ usethis::use_git_config(user.name = "Taro Yamada", user.email = "tyamada@example
 gitcreds::gitcreds_set()
 ```
 
-#### (3) ラボノートの内容を書いてknitして，OSFにアップする。
+#### (3) ラボノートの内容を書いてknitして，GitHubにアップ（コミット＆プッシュ）する
 
 - 電子ラボノートは以下の関数で作れます。内容を書いて，knitすれば，PDF形式で出力されます。
 
