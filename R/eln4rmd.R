@@ -134,7 +134,7 @@ render_elnjp_pdf <- function(Rmd_file) {
 #' you can create a e-labnotebook file in the "labnote" directory from the current directory.
 #' In that case, please set rc to TURE.
 #' @export
-up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf = FALSE){
+up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf = FALSE, rc_osf = FALSE){
   # check argument
   if(missing(eln_osf) & missing(rc_osf)){
     stop("eln_osf\u304brc_osf\u306b\u5165\u529b\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
@@ -150,18 +150,19 @@ up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_os
   }else{
     date_name <- replace_date
   }
-
+  # set file name
   if(add_name == FALSE){
     pdf_file_name <- paste0(date_name, ".pdf")
   }else{
     pdf_file_name <- paste0(date_name, "_" ,add_name, ".pdf")
   }
-  if(exists("eln_osf")){
+  # upload labnote
+  if(eln_osf != FALSE){
     labnote_pdf <- osf_retrieve_node(eln_osf)
     osf_upload(labnote_pdf, path = paste0(tmp_wd,"/",pdf_file_name), conflicts = "overwrite")
   }
-
-  if(exists("rc_osf")){
+  # upload backup
+  if(rc_osf != FALSE){
     rc_component <- osf_retrieve_node(rc_osf)
     osf_upload(rc_component, path = paste0(getwd(), "/"), recurse = TRUE, conflicts = "overwrite")
   }
