@@ -134,14 +134,14 @@ render_elnjp_pdf <- function(Rmd_file) {
 #' you can create a e-labnotebook file in the "labnote" directory from the current directory.
 #' In that case, please set rc to TURE.
 #' @export
-up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf){
+up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf = FALSE){
   # check argument
   if(missing(eln_osf) & missing(rc_osf)){
     stop("eln_osf\u304brc_osf\u306b\u5165\u529b\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
   }
   # set path
   tmp_wd <- getwd()
-  if(exists("rc_osf")){
+  if(rc_osf != FALSE){
     tmp_wd = paste0(tmp_wd, "/labnote")
   }
   # set file name

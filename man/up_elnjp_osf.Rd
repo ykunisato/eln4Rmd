@@ -4,7 +4,7 @@
 \alias{up_elnjp_osf}
 \title{upload Japanese e-labnotebook to OSF}
 \usage{
-up_elnjp_osf(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf)
+up_elnjp_osf(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf = FALSE)
 }
 \arguments{
 \item{add_name}{If you want to add the name after the date as the file name,
