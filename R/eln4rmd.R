@@ -135,13 +135,15 @@ render_elnjp_pdf <- function(Rmd_file) {
 #' In that case, please set rc to TURE.
 #' @export
 up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_osf){
-  # make pdf firectory
+  # check argument
+  if(missing(eln_osf) & missing(rc_osf)){
+    stop("eln_osf\u304brc_osf\u306b\u5165\u529b\u3092\u3057\u3066\u304f\u3060\u3055\u3044\u3002")
+  }
+  # set path
   tmp_wd <- getwd()
-
   if(exists("rc_osf")){
     tmp_wd = paste0(tmp_wd, "/labnote")
   }
-
   # set file name
   if(replace_date == FALSE){
     date_name <- strsplit(paste0(as.POSIXlt(Sys.time(), format="%Y-%m-%d %H:%M:%S", tz="Japan")), " +")[[1]][1]
@@ -154,9 +156,10 @@ up_elnjp_osf  <- function(add_name = FALSE, replace_date = FALSE, eln_osf, rc_os
   }else{
     pdf_file_name <- paste0(date_name, "_" ,add_name, ".pdf")
   }
-
-  labnote_pdf <- osf_retrieve_node(eln_osf)
-  osf_upload(labnote_pdf, path = paste0(tmp_wd,"/",pdf_file_name), conflicts = "overwrite")
+  if(exists("eln_osf")){
+    labnote_pdf <- osf_retrieve_node(eln_osf)
+    osf_upload(labnote_pdf, path = paste0(tmp_wd,"/",pdf_file_name), conflicts = "overwrite")
+  }
 
   if(exists("rc_osf")){
     rc_component <- osf_retrieve_node(rc_osf)
