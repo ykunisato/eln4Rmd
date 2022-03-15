@@ -3,6 +3,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+## eln4Rmdは2022/3/15をもって開発を終了しました。eln4Rmdに含まれている関数は，今後，[psyinfr](https://github.com/ykunisato/psyinfr)パッケージでメンテナンスをする予定です。
+
 eln4Rmdは，電子ラボノートのためのRmdテンプレート用Rパッケージです。まだ開発中ですので，生暖かく見守っていただけたらと思います。
 
 ## Installation
